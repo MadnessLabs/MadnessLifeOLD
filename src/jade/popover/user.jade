@@ -1,0 +1,17 @@
+ion-popover-view.fit
+    ion-list
+        a.item.item-icon-right(href="mailto:{{ctrl.user.user_email}}" target="_System" ng-show="ctrl.user.user_email")
+            i.icon.ion-email
+            | {{ctrl.user.user_email}}
+        a.item.item-icon-right(href="tel:{{ctrl.user.user_phone}}" target="_System" ng-show="ctrl.user.user_phone")
+            i.icon.ion-ios-telephone
+            | {{ctrl.user.user_phone | tel}}
+        a.item.item-icon-right(href="tel:{{ctrl.user.user_phone_cell}}" target="_System" ng-show="ctrl.user.user_phone_cell")
+            i.icon.ion-iphone
+            | {{ctrl.user.user_phone_cell | tel}}
+        a.item.item-icon-right(ng-click="$root.openMap(ctrl.user.user_address)" ng-show="ctrl.user.user_address")
+            i.icon.ion-map
+            | {{ctrl.user.user_address}}
+        a.item.item-icon-right(ng-click="ctrl.deleteUser(ctrl.user.user_id)")
+            i.icon.ion-trash-a
+            | Remove User

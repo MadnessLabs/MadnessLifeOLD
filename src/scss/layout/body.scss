@@ -1,0 +1,210 @@
+@import '../variables';
+@import '../mixin/clearfix';
+
+body {
+    @include clearfix();
+    width: 100%;
+    visibility: hidden;
+}
+
+.state-loading{
+    transition: all 2s ease;
+    opacity:0;
+}
+
+.state-loaded{
+    opacity:1 !important;
+}
+
+.spinner-positive svg{
+    height:50px;
+    width:50px;
+}
+
+.modal.active{
+    height:250px;
+}
+
+ion-content[class^='state-'],ion-content[class*=' state-']{
+    &>.scroll{
+        padding-bottom:50px;
+    }
+}
+
+.theme-primary{
+    background-color: $theme-primary;
+    color: #fff !important;
+}
+
+.theme-secondary{
+    background-color: $theme-secondary;
+}
+
+.pane{
+    background: -moz-linear-gradient(top,  #ffffff 46%, $theme-light-gray 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(46%,#ffffff), color-stop(100%,$theme-light-gray));
+    background: -webkit-linear-gradient(top,  #ffffff 46%,$theme-light-gray 100%);
+    background: -o-linear-gradient(top,  #ffffff 46%,$theme-light-gray 100%);
+    background: -ms-linear-gradient(top,  #ffffff 46%,$theme-light-gray 100%);
+    background: linear-gradient(to bottom,  #ffffff 46%,$theme-light-gray 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='$theme-light-gray',GradientType=0 );
+}
+
+.avatar{ 
+    img{
+       border-radius: 100%; 
+       display: block;
+       margin: 0 auto;
+       max-width: 90%;
+    }
+}
+
+.mfb-component--br {
+    margin-bottom:10px;
+}
+
+.mfb-component__child-icon{
+    font-size:26px;
+    line-height:55px;
+}
+
+job-card{
+    .card{
+        margin-top: 0;
+        margin-bottom: 0;
+        cursor: pointer;
+        .curbshot{
+            width: 100%;
+            height: 100px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}
+
+ion-popover-view.fit {
+   margin-top:0px !important;
+   margin-left:-15px !important;
+   height: auto;
+}
+
+ion-popover-view.fit ion-content {
+  position: relative;
+}
+
+.platform-android ion-popover-view.fit {
+  margin-top: 10px;
+}
+
+.platform-ios ion-popover-view.fit {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.hasMFB .scroll{
+    padding-bottom:75px !important;
+}
+
+ion-side-menu[side="left"]{
+    .logo{
+        background-color:$theme-primary;
+        img{
+            height:150px;
+            display:block;
+            margin:0 auto;
+        }
+    }
+
+    .branding{
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+        padding:10px 15px;
+        height:60px;
+        background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+        background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+        h3{
+            font-size:20px;
+            position: absolute;
+            bottom:20px;
+            left:15px;
+            color:lighten($theme-dark-gray, 25%);
+        }
+        p{
+            color:lighten($theme-dark-gray, 33%);
+            position:absolute;
+            left:40px;
+            bottom:0px;
+        }
+        img{
+            float:right;
+            width:50px;
+        }
+    }
+}   
+
+a.item, ion-item[ui-sref], ion-item[ng-click], .button-stable{
+    cursor:pointer;
+    &:hover{
+        color:$theme-primary !important;
+    }
+}
+
+footer{
+    height:50px;
+    background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+    position: absolute;
+    bottom:0px;
+    left:0px;
+    width:100%;
+    display:display;
+    img{
+        height:40px;
+        position:absolute;
+        left:20px;
+        bottom:10px;
+        display:block;
+    }
+    p{
+        display:block;
+        width:100%;
+        position:absolute;
+        bottom:5px;
+        text-align: center;
+        margin:0;
+        padding:0;
+    }
+}
+
+.item-select select{
+    padding-bottom:5px;
+    direction:ltr;
+    width:65%;
+    padding-left:5px;
+}
+
+.fallback{
+    i{
+        width:100%;
+        display:block;
+        text-align: center;
+        font-size:150px;
+        color:$theme-dark-gray;
+    }
+    p{
+        font-size:14px;
+        width:100%;
+        text-align:center;
+        font-weight:bold;
+        color:$theme-light-gray;
+    }
+}
+
+set-background, [set-background], photo-upload .item-image , [photo-upload] .item-image{
+    transition: all 1s ease;
+}

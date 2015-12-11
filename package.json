@@ -1,0 +1,54 @@
+{
+  "name": "madnesslife",
+  "version": "0.0.1",
+  "description": "The mangement system for your smart home",
+  "scripts": {
+    "postinstall": "gulp reinstall"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.10.0",
+    "gulp": "^3.9.0",
+    "gulp-add-src": "^0.2.0",
+    "gulp-bower": "^0.0.11",
+    "gulp-cached": "^1.1.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-data": "^1.2.0",
+    "gulp-favicons": "^2.1.2",
+    "gulp-filter": "^3.0.1",
+    "gulp-if": "^2.0.0",
+    "gulp-intercept": "^0.1.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-jadelint": "madnesslabs/gulp-jadelint",
+    "gulp-json-editor": "^2.2.1",
+    "gulp-json-sass": "^0.0.2",
+    "gulp-minify-css": "^0.3.0",
+    "gulp-ng-config": "^1.2.1",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.1.0",
+    "gulp-sass-lint": "^1.1.0",
+    "gulp-shell": "^0.5.1",
+    "gulp-tsd": "0.0.4",
+    "gulp-tslint": "^3.6.0",
+    "gulp-typescript": "^2.9.2",
+    "gulp-uglify": "^1.5.1",
+    "inquirer": "^0.11.0",
+    "path": "^0.12.7",
+    "run-sequence": "^1.1.4",
+    "shelljs": "^0.5.3"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-splashscreen",
+    "com.ionic.keyboard",
+    "phonegap-plugin-push",
+    "org.apache.cordova.camera"
+  ],
+  "cordovaPlatforms": [
+    "android"
+  ]
+}

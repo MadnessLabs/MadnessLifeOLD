@@ -1,0 +1,4 @@
+
+<ion-popover-view class="fit">
+  <ion-list><a href="mailto:{{ctrl.user.user_email}}" target="_System" ng-show="ctrl.user.user_email" class="item item-icon-right"><i class="icon ion-email"></i>{{ctrl.user.user_email}}</a><a href="tel:{{ctrl.user.user_phone}}" target="_System" ng-show="ctrl.user.user_phone" class="item item-icon-right"><i class="icon ion-ios-telephone"></i>{{ctrl.user.user_phone | tel}}</a><a href="tel:{{ctrl.user.user_phone_cell}}" target="_System" ng-show="ctrl.user.user_phone_cell" class="item item-icon-right"><i class="icon ion-iphone"></i>{{ctrl.user.user_phone_cell | tel}}</a><a ng-click="$root.openMap(ctrl.user.user_address)" ng-show="ctrl.user.user_address" class="item item-icon-right"><i class="icon ion-map"></i>{{ctrl.user.user_address}}</a><a ng-click="ctrl.deleteUser(ctrl.user.user_id)" class="item item-icon-right"><i class="icon ion-trash-a"></i>Remove User</a></ion-list>
+</ion-popover-view>

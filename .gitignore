@@ -1,0 +1,8 @@
+node_modules/
+platforms/
+plugins/
+bower_components/
+build/
+*.sublime-project
+*.sublime-workspace
+*.log

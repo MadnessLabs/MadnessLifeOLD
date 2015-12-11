@@ -1,0 +1,11 @@
+ion-popover-view.fit
+    ion-list
+        a.item.item-icon-right(href="tel:{{ctrl.job.job_phone}}" target="_System" ng-show="ctrl.job.job_phone")
+            i.icon.ion-ios-telephone
+            | {{ctrl.job.job_phone | tel}}
+        a.item.item-icon-right(href="tel:{{ctrl.job.job_cell}}" target="_System" ng-show="ctrl.job.job_cell")
+            i.icon.ion-iphone
+            | {{ctrl.job.job_cell | tel}}
+        a.item.item-icon-right(ng-click="$root.openMap(ctrl.job.job_address)" ng-show="ctrl.job.job_address")
+            i.icon.ion-map
+            | {{ctrl.job.job_address}}

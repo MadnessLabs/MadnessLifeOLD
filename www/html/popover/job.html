@@ -1,0 +1,4 @@
+
+<ion-popover-view class="fit">
+  <ion-list><a href="tel:{{ctrl.job.job_phone}}" target="_System" ng-show="ctrl.job.job_phone" class="item item-icon-right"><i class="icon ion-ios-telephone"></i>{{ctrl.job.job_phone | tel}}</a><a href="tel:{{ctrl.job.job_cell}}" target="_System" ng-show="ctrl.job.job_cell" class="item item-icon-right"><i class="icon ion-iphone"></i>{{ctrl.job.job_cell | tel}}</a><a ng-click="$root.openMap(ctrl.job.job_address)" ng-show="ctrl.job.job_address" class="item item-icon-right"><i class="icon ion-map"></i>{{ctrl.job.job_address}}</a></ion-list>
+</ion-popover-view>

@@ -1,0 +1,54 @@
+// IMPORTS
+@import '../variables';
+
+photo-upload{
+    position:relative;
+    #photo-input{
+        position:absolute;
+        top:0;
+        left:0;
+        opacity: 0;
+        height:1px;
+        width:1px;
+    }
+    .item-image{
+        height:332px;
+        background-repeat:no-repeat;
+        background-position:center;
+        background-size:cover;
+        -webkit-transition: all 0.7s ease;
+        -moz-transition: all 0.7s ease;
+        transition: all 0.7s ease;
+        &:after{
+            content: "\f118"; 
+            font-family: Ionicons;
+            font-style: normal;
+            font-weight: normal;
+            margin-left:-21px;
+            font-size:125px;
+            opacity:0;
+            background: rgba(red($theme-primary),green($theme-primary),blue($theme-primary),0.65);
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            line-height: 332px;
+            text-align:center;
+            text-shadow: 
+                -1px 0 100px darken(desaturate($theme-primary, 25%), 25%), 
+                0 1px 100px darken(desaturate($theme-primary, 25%), 25%), 
+                1px 0 100px darken(desaturate($theme-primary, 25%), 25%), 
+                0 -1px 100px darken(desaturate($theme-primary, 25%), 25%);
+            -webkit-transition: all 0.7s ease;
+            -moz-transition: all 0.7s ease;
+            transition: all 0.7s ease;
+        }
+        &:hover{
+            &:after{
+                color:#fff;
+                opacity: 1;
+            }
+        }
+    }
+}
