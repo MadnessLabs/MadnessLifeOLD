@@ -710,7 +710,12 @@ gulp.task('html-template', function(){
         }))        
         .pipe(rename('index.html'))
         .pipe(gulp.dest(appDir))
-        .pipe(gulpif(global.isWatching, browserSync.reload()));
+        .on('end', function(){
+            if(global.isWatching){
+                browserSync.reload();
+            }
+        });
+        //.pipe(gulpif(global.isWatching, browserSync.reload()));
 });
 
 gulp.task('js-app', function(){

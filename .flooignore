@@ -1,0 +1,14 @@
+#*
+*.o
+*.pyc
+*.pyo
+*~
+extern/
+node_modules/
+tmp
+vendor/
+bower_components/
+hooks/
+templates/
+build/
+resources/
