@@ -1,18 +1,4 @@
 
 <ion-view title="Login" hide-nav-bar="true" class="state-login">
-  <ion-content padding="false" scroll="false">
-    <form name="loginForm" ng-submit="ctrl.login(loginForm)">
-      <div class="card">
-        <ion-list>
-          <label class="item item-input"><span class="input-label">Username Woot</span>
-            <input type="email" placeholder="" ng-model="ctrl.username" required="required"/>
-          </label>
-          <label class="item item-input"><span class="input-label">Password</span>
-            <input type="password" placeholder="" ng-model="ctrl.password" required="required"/>
-          </label>
-        </ion-list>
-      </div>
-      <button type="submit" class="button button-light button-block button-outline icon-right ion-unlocked">Log in</button>
-    </form>
-  </ion-content>
+  <ion-content scroll="false"><a ng-click="ctrl.loginFacebook()" class="button button-block icon-left ion-social-facebook">Facebook</a><a ng-click="ctrl.loginGoogle()" class="button button-block icon-left ion-social-google">Google</a></ion-content>
 </ion-view>

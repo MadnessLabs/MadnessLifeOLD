@@ -3,5 +3,11 @@
 
 // PAGE STYLES
 .state-home{
-    
+    h1{
+    	color: $theme-primary;
+    	&:hover{
+    		cursor: pointer;
+    		color: $theme-secondary;
+    	}
+    }
 }

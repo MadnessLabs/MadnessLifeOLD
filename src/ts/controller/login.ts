@@ -5,33 +5,85 @@ module MadnessLife {
     class LoginController {
 		username: string;
         password: string;
+        ref: any;
+        users: any;
+        userUrl: string;
 
         constructor(
-            protected Auth,
-            protected $filter, 
-            protected $state, 
             protected enjin,
-            protected $ionicSideMenuDelegate
+            protected $firebaseObject,
+            protected $firebaseArray,
+            protected Session,
+            protected $state
         ) {
             //On Load
+            this.ref = new Firebase(this.enjin.db.firebase.host);
+            this.userUrl = this.enjin.db.firebase.host + 'users';       
         }
 
-        login(form) {
-			if (form.$valid) {
-                this.Auth.login(
-                    this.enjin.db.api.host + 'login',
-                    {
-                        username: this.username,
-                        password: this.password
-                    },
-                    function(res) {
+        loginFacebook() {
+            this.ref.authWithOAuthPopup('facebook', function(error, authData) {
+                if (error) {
+                    console.log('Login Failed!', error);
+                } else {
+                    this.authenticate(authData);
+                }
+            }.bind(this));
+        }
+
+        loginGoogle() {
+            this.ref.authWithOAuthPopup('google', function(error, authData) {
+                if (error) {
+                    console.log('Login Failed!', error);
+                } else {
+                    this.authenticate(authData);
+                }
+            }.bind(this));
+        }
+
+        authenticate(data) {
+            // if user is already registered
+            var userRef = new Firebase(this.userUrl + data.auth.uid);
+            this.$firebaseObject(userRef).$loaded().then(function(player) {
+                if (player.name) {
+                    player.id = data.auth.uid;
+                    this.Session.set(player);
+                    this.$state.go('home');
+                } else {
+                    var playersRef = new Firebase(this.userUrl);
+                    var players = this.$firebaseArray(playersRef);
+                    var newPlayer = {
+                        id: '',
+                        name: '',
+                        avatar: '',
+                        profile: ''
+                    };
+                    switch (data.provider) {
+                        case 'google':
+                            newPlayer.id = data.auth.uid;
+                            newPlayer.name = data.google.displayName;
+                            newPlayer.avatar = data.google.profileImageURL;
+                            newPlayer.profile = data.google.cachedUserProfile.link;
+                            break;
+                        case 'facebook':
+                            newPlayer.id = data.auth.uid;
+                            newPlayer.name = data.facebook.displayName;
+                            newPlayer.avatar = data.facebook.profileImageURL;
+                            newPlayer.profile = data.facebook.cachedUserProfile.link;
+                            break;
+                        default:
+                            return false;
+                    }
+
+                    playersRef.child(data.auth.uid).set(newPlayer, function() {
+                        this.Session.set(newPlayer);
                         this.$state.go('home');
-                        this.$ionicSideMenuDelegate.canDragContent(true);
-                    }.bind(this)
-                );
-			} else {
-				alert('Please enter in a valid E-mail and password.');
-			}
+                    }.bind(this));
+                }
+            }.bind(this))
+            .catch(function(error) {
+               console.log(error);
+            });
         }
     }
 

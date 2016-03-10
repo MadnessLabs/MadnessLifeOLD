@@ -10,6 +10,10 @@ module MadnessLife {
         ) {
             // On Load
         }
+
+        testMethod() {
+            alert('I Ran!');
+        }
     }
 
     angular.module('MadnessLife').controller('MadnessLife.HomeController', HomeController);

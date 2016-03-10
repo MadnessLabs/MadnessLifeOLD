@@ -894,7 +894,9 @@ gulp.task('tsd', function (callback) {
 gulp.task('watch', function(){
     global.isWatching = true;
     gulp.watch(configFile, ['config-build']);
-    gulp.watch(cssWatch, ['css-lint']);
+    gulp.watch(cssWatch, function(){
+        runSequence(['css-compile', 'css-concat'])
+    });
     gulp.watch(jsWatch, ['js-lint']);
     gulp.watch(jsLib, ['js-lib']);
     gulp.watch(htmlWatch, ['html-compile']);

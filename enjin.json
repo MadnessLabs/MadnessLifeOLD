@@ -22,7 +22,7 @@
         "state": "home",
         "url": "/home",
         "templateUrl": "html/page/home.html",
-        "controller": "MadnessLife.JobFormController as ctrl"
+        "controller": "MadnessLife.HomeController as ctrl"
     }],
     "plugins": [
         "ionic",
@@ -34,7 +34,7 @@
     ],
     "db": {
         "firebase": {
-            "host": ""
+            "host": "https://madnesslife.firebaseio.com/"
         },
         "api": {
             "host": "http://api.madness.life/v1/"
@@ -56,7 +56,7 @@
         "srcDir": "src/scss/",
         "vars": {
             "theme": {
-                "primary": "#4D7AFF",
+                "primary": "green",
                 "secondary": "#4369D8",
                 "warning": "#ef473a",
                 "dark-gray": "#666666",

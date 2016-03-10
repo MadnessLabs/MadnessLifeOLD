@@ -78450,7 +78450,7 @@ var MadnessLife;
 (function (MadnessLife) {
     'use strict';
     var AppRunner = (function () {
-        function AppRunner($ionicPlatform, $cordovaKeyboard, $cordovaSplashscreen, $rootScope, enjin, $state, $ionicLoading, Auth, $ionicSideMenuDelegate, $http) {
+        function AppRunner($ionicPlatform, $cordovaKeyboard, $cordovaSplashscreen, $rootScope, enjin, $state, $ionicLoading, Session, $ionicSideMenuDelegate, $http) {
             $ionicPlatform.ready(function () {
                 if (window.cordova && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -78463,42 +78463,22 @@ var MadnessLife;
                         $rootScope.keyboardOpen = value;
                     });
                 }
-                $rootScope.mobiscrollOpts = {
-                    theme: 'floodteam'
-                };
-                $rootScope.host = {
-                    api: enjin.db.api.host.slice(0, -3),
-                    apiFull: enjin.db.api.host,
-                    url: enjin.url
-                };
-                $rootScope.logout = function () {
-                    Auth.logout();
-                };
-                $rootScope.openMap = function (marker) {
-                    var text = encodeURIComponent(marker);
-                    if (window.cordova) {
-                        if (ionic.Platform.isIOS()) {
-                            console.log('Opeing in Google Maps on iOS');
-                            window.location.href = 'maps://?q=' + text;
-                        }
-                        else {
-                            console.log('Opeing in Google Maps on a good OS');
-                            window.open('geo:0,0?q=' + text, '_system', 'location=no');
-                        }
-                    }
-                    else {
-                        window.open('https://maps.google.com?q=' + text, '_');
-                    }
-                };
+                if (!enjin.session && localStorage.getItem('enjin_session')) {
+                    Session.get();
+                }
+                $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+                    Session.check(event, toState, toParams, fromState, fromParams);
+                }.bind(this));
                 $rootScope.$on('loading:show', function () {
                     $ionicLoading.show({ template: '<ion-spinner icon="ripple" class="spinner-positive"></ion-spinner>' });
                 });
                 $rootScope.$on('loading:hide', function () {
                     $ionicLoading.hide();
                 });
-                setTimeout(function () {
-                    angular.element(document.querySelectorAll('body')).css({ visibility: 'visible' });
-                }, 500);
+                $rootScope.logout = function () {
+                    Session.destroy();
+                    $state.go('login');
+                };
             });
         }
         return AppRunner;
@@ -78518,7 +78498,7 @@ var MadnessLife;
                 'controller': 'MadnessLife.LoginController as ctrl' })
                 .state('home', { 'url': '/home',
                 'templateUrl': 'html/page/home.html',
-                'controller': 'MadnessLife.JobFormController as ctrl' });
+                'controller': 'MadnessLife.HomeController as ctrl' });
             $urlRouterProvider.otherwise(function ($injector, $location) {
                 var $state = $injector.get('$state');
                 $state.go('login');
@@ -78531,7 +78511,7 @@ var MadnessLife;
 })(MadnessLife || (MadnessLife = {}));
 
 angular.module('MadnessLife.config', [])
-.constant('enjin', {"name":"MadnessLife","description":"The mangement system for your smart home","author":{"name":"Madness Labs","email":"info@MadnessLabs.net","url":"http://MadnessLabs.net"},"root":"www/","templates":"templates/","mobile":false,"local":true,"debug":true,"url":"http://madness.life","version":"0.0.1","routes":[{"state":"login","url":"/login","templateUrl":"html/page/login.html","controller":"MadnessLife.LoginController as ctrl"},{"state":"home","url":"/home","templateUrl":"html/page/home.html","controller":"MadnessLife.JobFormController as ctrl"}],"plugins":["ionic","ngCordova","firebase","ng-mfb","relativeDate","mobiscroll-datetime"],"db":{"firebase":{"host":""},"api":{"host":"http://api.madness.life/v1/"}},"html":{"dir":"html/","file":"index.html","srcDir":"src/jade/","srcFile":"app.jade","watch":["src/jade/**/*.jade","!src/jade/favicon.jade"]},"css":{"dir":"css/","file":"build.css","srcDir":"src/scss/","vars":{"theme":{"primary":"#4D7AFF","secondary":"#4369D8","warning":"#ef473a","dark-gray":"#666666","light-gray":"#BDBDBD"},"light":"#ffffff !default","stable":"#f8f8f8 !default","positive":"$theme-primary !default","calm":"$theme-secondary !default","balanced":"#17A05E !default","energized":"#ffc900 !default","assertive":"$theme-warning !default","royal":"#886aea !default","dark":"$theme-dark-gray !default","ionicons-font-path":"'../fonts' !default","screen":{"xl":"1500px","lg":"1200px","md":"992px","sm":"768px","xs":"480px"},"grid":{"responsive":{"sm-break":"$screen-sm","md-break":"$screen-md","lg-break":"$screen-lg"}},"main-color":"$theme-primary !default","icons-font-size":"24px !default"},"libraries":["bower_components/ionic/scss/ionic.scss","bower_components/ng-material-floating-button/mfb/src/mfb.scss","bower_components/font-awesome/scss/font-awesome.scss"],"build":["build/css/libraries.css","bower_components/flexboxgrid/dist/flexboxgrid.css","build/css/layout/**/*.css","build/css/page/**/*.css","build/css/modal/**/*.css"],"watch":["src/scss/**/*.scss","!src/scss/libraries.scss","!src/scss/_variables.scss"]},"js":{"dir":"js/","file":"build.js","srcDir":"src/ts/","libraries":["bower_components/jquery/dist/jquery.js","bower_components/ionic/release/js/ionic.bundle.js","bower_components/ngCordova/dist/ng-cordova.js","bower_components/firebase/firebase.js","bower_components/angularfire/dist/angularfire.js","bower_components/ng-material-floating-button/src/mfb-directive.js","bower_components/angular-relative-date/angular-relative-date.js"],"build":["build/js/app.js","build/js/run.js","build/js/router.js","build/js/config.js","src/ts/library/**/*.js","build/js/controller/**/*.js","build/js/factory/**/*.js","build/js/filter/**/*.js","build/js/directive/**/*.js","build/js/service/**/*.js"],"watch":["src/ts/**/*.ts"]},"font":{"dir":"fonts/","watch":["bower_components/ionic/release/fonts/**","bower_components/font-awesome/fonts/**"]},"img":{"dir":"img/","favicon":"resources/icon.png","watch":["resources/**"]}});
+.constant('enjin', {"name":"MadnessLife","description":"The mangement system for your smart home","author":{"name":"Madness Labs","email":"info@MadnessLabs.net","url":"http://MadnessLabs.net"},"root":"www/","templates":"templates/","mobile":false,"local":true,"debug":true,"url":"http://madness.life","version":"0.0.1","routes":[{"state":"login","url":"/login","templateUrl":"html/page/login.html","controller":"MadnessLife.LoginController as ctrl"},{"state":"home","url":"/home","templateUrl":"html/page/home.html","controller":"MadnessLife.HomeController as ctrl"}],"plugins":["ionic","ngCordova","firebase","ng-mfb","relativeDate","mobiscroll-datetime"],"db":{"firebase":{"host":"https://madnesslife.firebaseio.com/"},"api":{"host":"http://api.madness.life/v1/"}},"html":{"dir":"html/","file":"index.html","srcDir":"src/jade/","srcFile":"app.jade","watch":["src/jade/**/*.jade","!src/jade/favicon.jade"]},"css":{"dir":"css/","file":"build.css","srcDir":"src/scss/","vars":{"theme":{"primary":"green","secondary":"#4369D8","warning":"#ef473a","dark-gray":"#666666","light-gray":"#BDBDBD"},"light":"#ffffff !default","stable":"#f8f8f8 !default","positive":"$theme-primary !default","calm":"$theme-secondary !default","balanced":"#17A05E !default","energized":"#ffc900 !default","assertive":"$theme-warning !default","royal":"#886aea !default","dark":"$theme-dark-gray !default","ionicons-font-path":"'../fonts' !default","screen":{"xl":"1500px","lg":"1200px","md":"992px","sm":"768px","xs":"480px"},"grid":{"responsive":{"sm-break":"$screen-sm","md-break":"$screen-md","lg-break":"$screen-lg"}},"main-color":"$theme-primary !default","icons-font-size":"24px !default"},"libraries":["bower_components/ionic/scss/ionic.scss","bower_components/ng-material-floating-button/mfb/src/mfb.scss","bower_components/font-awesome/scss/font-awesome.scss"],"build":["build/css/libraries.css","bower_components/flexboxgrid/dist/flexboxgrid.css","build/css/layout/**/*.css","build/css/page/**/*.css","build/css/modal/**/*.css"],"watch":["src/scss/**/*.scss","!src/scss/libraries.scss","!src/scss/_variables.scss"]},"js":{"dir":"js/","file":"build.js","srcDir":"src/ts/","libraries":["bower_components/jquery/dist/jquery.js","bower_components/ionic/release/js/ionic.bundle.js","bower_components/ngCordova/dist/ng-cordova.js","bower_components/firebase/firebase.js","bower_components/angularfire/dist/angularfire.js","bower_components/ng-material-floating-button/src/mfb-directive.js","bower_components/angular-relative-date/angular-relative-date.js"],"build":["build/js/app.js","build/js/run.js","build/js/router.js","build/js/config.js","src/ts/library/**/*.js","build/js/controller/**/*.js","build/js/factory/**/*.js","build/js/filter/**/*.js","build/js/directive/**/*.js","build/js/service/**/*.js"],"watch":["src/ts/**/*.ts"]},"font":{"dir":"fonts/","watch":["bower_components/ionic/release/fonts/**","bower_components/font-awesome/fonts/**"]},"img":{"dir":"img/","favicon":"resources/icon.png","watch":["resources/**"]}});
 
 /* 0d084d36-6dc9-41b5-aa52-42f8f405069c */
 (function(b, r) {
@@ -80332,6 +80312,9 @@ var MadnessLife;
             this.Rest = Rest;
             // On Load
         }
+        HomeController.prototype.testMethod = function () {
+            alert('I Ran!');
+        };
         return HomeController;
     }());
     angular.module('MadnessLife').controller('MadnessLife.HomeController', HomeController);
@@ -80342,27 +80325,79 @@ var MadnessLife;
 (function (MadnessLife) {
     'use strict';
     var LoginController = (function () {
-        function LoginController(Auth, $filter, $state, enjin, $ionicSideMenuDelegate) {
-            this.Auth = Auth;
-            this.$filter = $filter;
-            this.$state = $state;
+        function LoginController(enjin, $firebaseObject, $firebaseArray, Session, $state) {
             this.enjin = enjin;
-            this.$ionicSideMenuDelegate = $ionicSideMenuDelegate;
+            this.$firebaseObject = $firebaseObject;
+            this.$firebaseArray = $firebaseArray;
+            this.Session = Session;
+            this.$state = $state;
             //On Load
+            this.ref = new Firebase(this.enjin.db.firebase.host);
+            this.userUrl = this.enjin.db.firebase.host + 'users';
         }
-        LoginController.prototype.login = function (form) {
-            if (form.$valid) {
-                this.Auth.login(this.enjin.db.api.host + 'login', {
-                    username: this.username,
-                    password: this.password
-                }, function (res) {
+        LoginController.prototype.loginFacebook = function () {
+            this.ref.authWithOAuthPopup('facebook', function (error, authData) {
+                if (error) {
+                    console.log('Login Failed!', error);
+                }
+                else {
+                    this.authenticate(authData);
+                }
+            }.bind(this));
+        };
+        LoginController.prototype.loginGoogle = function () {
+            this.ref.authWithOAuthPopup('google', function (error, authData) {
+                if (error) {
+                    console.log('Login Failed!', error);
+                }
+                else {
+                    this.authenticate(authData);
+                }
+            }.bind(this));
+        };
+        LoginController.prototype.authenticate = function (data) {
+            // if user is already registered
+            var userRef = new Firebase(this.userUrl + data.auth.uid);
+            this.$firebaseObject(userRef).$loaded().then(function (player) {
+                if (player.name) {
+                    player.id = data.auth.uid;
+                    this.Session.set(player);
                     this.$state.go('home');
-                    this.$ionicSideMenuDelegate.canDragContent(true);
-                }.bind(this));
-            }
-            else {
-                alert('Please enter in a valid E-mail and password.');
-            }
+                }
+                else {
+                    var playersRef = new Firebase(this.userUrl);
+                    var players = this.$firebaseArray(playersRef);
+                    var newPlayer = {
+                        id: '',
+                        name: '',
+                        avatar: '',
+                        profile: ''
+                    };
+                    switch (data.provider) {
+                        case 'google':
+                            newPlayer.id = data.auth.uid;
+                            newPlayer.name = data.google.displayName;
+                            newPlayer.avatar = data.google.profileImageURL;
+                            newPlayer.profile = data.google.cachedUserProfile.link;
+                            break;
+                        case 'facebook':
+                            newPlayer.id = data.auth.uid;
+                            newPlayer.name = data.facebook.displayName;
+                            newPlayer.avatar = data.facebook.profileImageURL;
+                            newPlayer.profile = data.facebook.cachedUserProfile.link;
+                            break;
+                        default:
+                            return false;
+                    }
+                    playersRef.child(data.auth.uid).set(newPlayer, function () {
+                        this.Session.set(newPlayer);
+                        this.$state.go('home');
+                    }.bind(this));
+                }
+            }.bind(this))
+                .catch(function (error) {
+                console.log(error);
+            });
         };
         return LoginController;
     }());
@@ -80813,4 +80848,54 @@ var MadnessLife;
         return RestService;
     }());
     angular.module('MadnessLife').service('Rest', RestService);
+})(MadnessLife || (MadnessLife = {}));
+
+/// <reference path="../../tsd/angularjs/angular.d.ts"/>
+var MadnessLife;
+(function (MadnessLife) {
+    var SessionService = (function () {
+        function SessionService(enjin, $rootScope, $state) {
+            this.enjin = enjin;
+            this.$rootScope = $rootScope;
+            this.$state = $state;
+            // On Load
+        }
+        SessionService.prototype.check = function (event, toState, toParams, fromState, fromParams) {
+            if (toState && toState.name !== fromState.name) {
+                if (toState.name === 'login') {
+                    if (this.enjin.session) {
+                        event.preventDefault();
+                        this.$state.go('home');
+                    }
+                }
+                else {
+                    if (!this.enjin.session) {
+                        event.preventDefault();
+                        this.$state.go('login');
+                    }
+                }
+            }
+        };
+        SessionService.prototype.set = function (player) {
+            this.enjin.session = this.$rootScope.session = {
+                id: player.id,
+                name: player.name,
+                avatar: player.avatar,
+                profile: player.profile
+            };
+            localStorage.setItem('enjin_session', JSON.stringify(this.enjin.session));
+            return this.enjin.session;
+        };
+        SessionService.prototype.get = function () {
+            var player = JSON.parse(localStorage.getItem('enjin_session'));
+            return this.set(player);
+        };
+        SessionService.prototype.destroy = function () {
+            this.enjin.session = false;
+            this.$rootScope.session = false;
+            localStorage.clear();
+        };
+        return SessionService;
+    }());
+    angular.module('MadnessLife').service('Session', SessionService);
 })(MadnessLife || (MadnessLife = {}));

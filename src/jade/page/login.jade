@@ -1,12 +1,4 @@
 ion-view.state-login(title='Login' hide-nav-bar="true")
-  ion-content(padding='false', scroll='false')
-    form(name="loginForm" ng-submit="ctrl.login(loginForm)")
-      .card
-        ion-list
-          label.item.item-input
-            span.input-label Username Woot
-            input(type='email' placeholder='' ng-model="ctrl.username" required)
-          label.item.item-input
-            span.input-label Password
-            input(type='password' placeholder='' ng-model="ctrl.password" required)
-      button.button.button-light.button-block.button-outline.icon-right.ion-unlocked(type='submit') Log in
+  ion-content(scroll='false')
+    a.button.button-block.icon-left.ion-social-facebook(ng-click="ctrl.loginFacebook()") Facebook
+    a.button.button-block.icon-left.ion-social-google(ng-click="ctrl.loginGoogle()") Google

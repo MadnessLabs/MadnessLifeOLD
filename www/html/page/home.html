@@ -1,4 +1,7 @@
 
-<ion-view title="Home" hide-nav-bar="true" class="state-home">
-  <ion-content padding="false" scroll="false">Home Page</ion-content>
+<ion-view title="Home" class="state-home">
+  <ion-nav-buttons side="right"><a ng-click="$root.logout()" class="button button-clear icon ion-power"></a></ion-nav-buttons>
+  <ion-content>
+    <h1 ng-click="ctrl.testMethod()" class="my-class">Welcome to Madness Life</h1>
+  </ion-content>
 </ion-view>

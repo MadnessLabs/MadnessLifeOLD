@@ -14,7 +14,7 @@ module MadnessLife {
             enjin, 
             $state, 
             $ionicLoading, 
-            Auth, 
+            Session, 
             $ionicSideMenuDelegate,
             $http
         ) {
@@ -33,34 +33,13 @@ module MadnessLife {
                     });
                 }
 
-                $rootScope.mobiscrollOpts = {
-                    theme: 'floodteam'
-                };
+                if (!enjin.session && localStorage.getItem('enjin_session')) {
+                    Session.get();
+                }
 
-                $rootScope.host = {
-                    api: enjin.db.api.host.slice(0, -3),
-                    apiFull: enjin.db.api.host,
-                    url: enjin.url
-                };
-
-                $rootScope.logout = function() {
-                    Auth.logout();
-                };
-
-                $rootScope.openMap = function(marker) {
-                    var text = encodeURIComponent(marker);
-                    if (window.cordova) {
-                        if (ionic.Platform.isIOS()) {
-                            console.log('Opeing in Google Maps on iOS');
-                            window.location.href = 'maps://?q=' + text;
-                        } else {
-                            console.log('Opeing in Google Maps on a good OS');
-                            window.open('geo:0,0?q=' + text, '_system', 'location=no');
-                        }
-                    } else {
-                        window.open('https://maps.google.com?q=' + text, '_');
-                    }
-                };
+                $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+                    Session.check(event, toState, toParams, fromState, fromParams);
+                }.bind(this));
 
                 $rootScope.$on('loading:show', function() {
                     $ionicLoading.show({ template: '<ion-spinner icon="ripple" class="spinner-positive"></ion-spinner>' });
@@ -69,10 +48,11 @@ module MadnessLife {
                 $rootScope.$on('loading:hide', function() {
                     $ionicLoading.hide();
                 });
-                
-                setTimeout(function() {
-                    angular.element(document.querySelectorAll('body')).css({ visibility: 'visible'});
-                }, 500);
+
+                $rootScope.logout = function() {
+                    Session.destroy();
+                    $state.go('login');
+                };
             });
         }
     }
