@@ -1,5 +1,14 @@
 ion-view.state-home(title='Home')
   ion-nav-buttons(side="right")
     a.button.button-clear.icon.ion-power(ng-click="$root.logout()")
-  ion-content
+  ion-content(scroll="overflow-scroll")
     h1.my-class(ng-click="ctrl.testMethod()") Welcome to Madness Life
+    .card
+        ion-list
+            div(ng-repeat='(key, light) in ctrl.lights')
+                input(type="text" ng-model="light.name" ng-change="ctrl.renameLight(light, key)")
+                ion-toggle(ng-model="light.state.on" toggle-class="toggle-calm" ng-change="ctrl.toggleLight(light, key)") {{light.name}}
+                input(type="color" ng-model="light.color" ng-change="ctrl.changeColor(light, key)")
+                //button.button(color-picker ng-model="light.color" modal-title="Choose a color" color-box="{{light.color}}" color-mode="hsl") {{ light.color || 'Choose a color' }}
+      
+    a.button.button-block(ui-sref="Connect" ng-hide='$root.session.hue.username') Connect your hue 

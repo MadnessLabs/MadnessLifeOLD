@@ -18,7 +18,7 @@ module MadnessLife {
         ) {
             //On Load
             this.ref = new Firebase(this.enjin.db.firebase.host);
-            this.userUrl = this.enjin.db.firebase.host + 'users';       
+            this.userUrl = this.enjin.db.firebase.host + 'users/';       
         }
 
         loginFacebook() {
@@ -45,7 +45,7 @@ module MadnessLife {
             // if user is already registered
             var userRef = new Firebase(this.userUrl + data.auth.uid);
             this.$firebaseObject(userRef).$loaded().then(function(player) {
-                if (player.name) {
+                if (player.id) {
                     player.id = data.auth.uid;
                     this.Session.set(player);
                     this.$state.go('home');

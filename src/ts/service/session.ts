@@ -32,7 +32,8 @@ module MadnessLife {
                 id: player.id,
                 name: player.name,
                 avatar: player.avatar,
-                profile: player.profile
+                profile: player.profile,
+                hue: player.hue
             };
             localStorage.setItem('enjin_session', JSON.stringify(this.enjin.session));
             return this.enjin.session;

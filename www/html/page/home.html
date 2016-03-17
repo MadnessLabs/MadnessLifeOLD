@@ -1,7 +1,17 @@
 
 <ion-view title="Home" class="state-home">
   <ion-nav-buttons side="right"><a ng-click="$root.logout()" class="button button-clear icon ion-power"></a></ion-nav-buttons>
-  <ion-content>
+  <ion-content scroll="overflow-scroll">
     <h1 ng-click="ctrl.testMethod()" class="my-class">Welcome to Madness Life</h1>
+    <div class="card">
+      <ion-list>
+        <div ng-repeat="(key, light) in ctrl.lights">
+          <input type="text" ng-model="light.name" ng-change="ctrl.renameLight(light, key)"/>
+          <ion-toggle ng-model="light.state.on" toggle-class="toggle-calm" ng-change="ctrl.toggleLight(light, key)">{{light.name}}</ion-toggle>
+          <input type="color" ng-model="light.color" ng-change="ctrl.changeColor(light, key)"/>
+          <!--button.button(color-picker ng-model="light.color" modal-title="Choose a color" color-box="{{light.color}}" color-mode="hsl") {{ light.color || 'Choose a color' }}-->
+        </div>
+      </ion-list>
+    </div><a ui-sref="Connect" ng-hide="$root.session.hue.username" class="button button-block">Connect your hue </a>
   </ion-content>
 </ion-view>

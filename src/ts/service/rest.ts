@@ -64,17 +64,9 @@ module MadnessLife {
             if (!silent) {
                 this.$rootScope.$broadcast('loading:show');
             }
-			
-            if (rParams) {
-                rParams = this.$httpParamSerializer(rParams);
-            }
             
 			var deferred = this.$q.defer();
-			this.$http.post(rUrl, rParams, {
-				headers: {
-					'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-				}
-			})
+			this.$http.post(rUrl, rParams)
 			.success(function(data, status, headers, config) {
                 if (!silent) {
                     this.$rootScope.$broadcast('loading:hide');
@@ -96,16 +88,8 @@ module MadnessLife {
                 this.$rootScope.$broadcast('loading:show');
             }
 
-            if (rParams) {
-                rParams = this.$httpParamSerializer(rParams);
-            }
-
             var deferred = this.$q.defer();
-            this.$http.put(rUrl, rParams, {
-                headers: {
-                    'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
-            })
+            this.$http.put(rUrl, rParams)
                 .success(function(data, status, headers, config) {
                     if (!silent) {
                         this.$rootScope.$broadcast('loading:hide');

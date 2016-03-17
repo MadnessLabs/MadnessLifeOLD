@@ -20,10 +20,6 @@ body {
     width:50px;
 }
 
-.modal.active{
-    height:250px;
-}
-
 ion-content[class^='state-'],ion-content[class*=' state-']{
     &>.scroll{
         padding-bottom:50px;

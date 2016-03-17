@@ -11,7 +11,8 @@
     "flexboxgrid": "~6.3.0",
     "angular-relative-date": "~1.0.0",
     "jquery": "~2.1.4",
-    "ion-autocomplete": "~0.3.1"
+    "ion-autocomplete": "~0.3.1",
+    "ionic-color-picker": "^1.0.3"
   },
   "resolutions": {
     "angular": "1.4.3"

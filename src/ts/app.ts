@@ -8,7 +8,8 @@
 		'firebase', 
 		'ng-mfb', 
 		'relativeDate', 
-		'mobiscroll-datetime'
+		'mobiscroll-datetime', 
+		'ionic-color-picker'
     ]);
 
 })();

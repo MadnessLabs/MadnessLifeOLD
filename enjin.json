@@ -23,6 +23,11 @@
         "url": "/home",
         "templateUrl": "html/page/home.html",
         "controller": "MadnessLife.HomeController as ctrl"
+    }, {
+        "state": "Connect",
+        "url": "/Connect",
+        "templateUrl": "html/page/Connect.html",
+        "controller": "MadnessLife.ConnectController as ctrl"
     }],
     "plugins": [
         "ionic",
@@ -30,7 +35,8 @@
         "firebase",
         "ng-mfb",
         "relativeDate",
-        "mobiscroll-datetime"
+        "mobiscroll-datetime",
+        "ionic-color-picker"
     ],
     "db": {
         "firebase": {
@@ -97,6 +103,7 @@
         "build": [
             "build/css/libraries.css",
             "bower_components/flexboxgrid/dist/flexboxgrid.css",
+            "bower_components/ionic-color-picker/dist/ionic-color-picker.css",
             "build/css/layout/**/*.css",
             "build/css/page/**/*.css",
             "build/css/modal/**/*.css"
@@ -118,7 +125,8 @@
             "bower_components/firebase/firebase.js",
             "bower_components/angularfire/dist/angularfire.js",
             "bower_components/ng-material-floating-button/src/mfb-directive.js",
-            "bower_components/angular-relative-date/angular-relative-date.js"
+            "bower_components/angular-relative-date/angular-relative-date.js",
+            "bower_components/ionic-color-picker/dist/ionic-color-picker-tinycolor.js"
         ],
         "build": [
             "build/js/app.js",

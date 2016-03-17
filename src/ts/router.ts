@@ -10,7 +10,10 @@ module MadnessLife {
 'controller':'MadnessLife.LoginController as ctrl'})
 				.state('home', {'url':'/home', 
 'templateUrl':'html/page/home.html', 
-'controller':'MadnessLife.HomeController as ctrl'});
+'controller':'MadnessLife.HomeController as ctrl'})
+				.state('Connect', {'url':'/Connect', 
+'templateUrl':'html/page/Connect.html', 
+'controller':'MadnessLife.ConnectController as ctrl'});
 
             $urlRouterProvider.otherwise(function($injector, $location) {
                 var $state = $injector.get('$state');
